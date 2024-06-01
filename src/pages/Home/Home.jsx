@@ -3,11 +3,11 @@ import { Icons } from "../../assets/assets";
 
 const Home = () => {
   return (
-    <div className="bg-gray-100 flex  items-center justify-center w-full py-10 gap-8 p-10">
+    <div className="bg-gray-100 flex flex-col lg:flex-row items-center justify-center w-full py-10 gap-8 p-10 h-screen ">
       <div>
         <img src={Icons.mainimg} alt="" />
       </div>
-      <div >
+      <div>
         <h1 className="text-lg font-bold py-4">Best Quality Products</h1>
         <h1 className="text-4xl font-bold">Join The Organic Movement!</h1>
         <p className="w-60 py-4">

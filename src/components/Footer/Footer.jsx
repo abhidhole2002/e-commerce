@@ -4,7 +4,7 @@ import { Icons } from "../../assets/assets";
 const Footer = () => {
   return (
     <div className="bg-gray-800 ">
-      <div className="mt-10 text-white flex justify-around py-10">
+      <div className="mt-10 text-white flex flex-col items-center gap-10 lg:flex-row justify-around py-10 ">
         <div>
           <img src={Icons.logo} alt="" className="h-16 mb-4" />
 

@@ -6,7 +6,8 @@ import Products from "./pages/SellingProducts/Products";
 import Shops from "./pages/Shops/Shops";
 import CustomerReview from "./pages/Review/CustomerReview";
 import Brands from "./pages/Brands/Brands";
-import Footer from "./pages/Footer/Footer";
+import Footer from "./components/Footer/Footer";
+import ProductsData from "./pages/Products/ProductsData";
 
 const App = () => {
   return (
@@ -17,7 +18,8 @@ const App = () => {
       <Products />
       <CustomerReview />
       <Brands />
-      <Footer/>
+      <Footer />
+      <ProductsData />
     </div>
   );
 };

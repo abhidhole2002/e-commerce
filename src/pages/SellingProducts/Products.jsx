@@ -11,7 +11,7 @@ const Products = () => {
         <h1 className="text-2xl font-bold">Best Selling Products</h1>
       </div>
 
-      <div className="flex flex-row py-5 justify-center gap-5">
+      <div className="flex flex-col lg:flex-row items-center py-5 justify-center gap-5">
         {data.map((item, index) => (
           <ProductsCard
             key={index}

@@ -2,7 +2,7 @@ import React from "react";
 import { Icons } from "../../assets/assets";
 const Card = ({ icon: Icon, title, info }) => {
   return (
-    <div className="flex items-center gap-5 bg-gray-500 bg-opacity-70 px-4 py-8  rounded-md">
+    <div className="flex items-center gap-5 bg-gray-500 bg-opacity-70 px-4 py-8  rounded-md w-60 h-40">
       <div>
         <Icon className="text-5xl text-green-600" />
       </div>
