@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Icons } from "../assets/assets";
 import Login from "../pages/Login/Login";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { AppContext } from "../AppContext/AppContext";
 
 const Navbar = () => {
-  const [show, setShow] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { showLogin, setShowLogin } = useContext(AppContext);
 
   return (
-    <div className="flex justify-between w-full px-4 md:px-20 items-center py-4">
+    <div className=" fixed bg-white z-0 top-0 flex justify-between w-full px-4 md:px-20 items-center py-4">
       <div className="flex items-center gap-4">
         <img
           src={Icons.logo}
@@ -16,24 +18,26 @@ const Navbar = () => {
           className="w-32 md:w-40 h-12 md:h-14"
         />
         <nav className="hidden md:flex items-center list-none gap-4">
-          <li>Everything</li>
-          <li>Groceries</li>
-          <li>Juice</li>
+          <li className="cursor-pointer">Everything</li>
+          <li className="cursor-pointer">Groceries</li>
+          <li className="cursor-pointer">Juice</li>
         </nav>
       </div>
       <div className="flex gap-6">
         <nav className="hidden md:flex list-none gap-4 items-center">
-          <li>About</li>
-          <li>Contact</li>
+          <li className="cursor-pointer">About</li>
+          <li className="cursor-pointer">Contact</li>
         </nav>
         <div className="flex items-center gap-4">
           <Icons.FaCartShopping />
-          <Icons.FaUser
-            className="cursor-pointer"
-            onClick={() => setShow(!show)}
-          />
+          <Link to={"/login"}>
+            <Icons.FaUser
+              className="cursor-pointer"
+              onClick={() => setShowLogin(!showLogin)}
+            />
+          </Link>
         </div>
-        <div className="md:hidden">
+        <div className="md:hidden border-2 border-gray-500 px-1 py-1 rounded-md">
           <FaBars
             className="cursor-pointer"
             onClick={() => setMenuOpen(true)}
@@ -49,17 +53,33 @@ const Navbar = () => {
               onClick={() => setMenuOpen(false)}
             />
             <nav className="flex flex-col list-none gap-4">
-              <li onClick={() => setMenuOpen(false)}>Everything</li>
-              <li onClick={() => setMenuOpen(false)}>Groceries</li>
-              <li onClick={() => setMenuOpen(false)}>Juice</li>
-              <li onClick={() => setMenuOpen(false)}>About</li>
-              <li onClick={() => setMenuOpen(false)}>Contact</li>
+              <li className="cursor-pointer" onClick={() => setMenuOpen(false)}>
+                Everything
+              </li>
+              <li className="cursor-pointer" onClick={() => setMenuOpen(false)}>
+                Groceries
+              </li>
+              <li className="cursor-pointer" onClick={() => setMenuOpen(false)}>
+                Juice
+              </li>
+              <li
+                className=" cursor-pointer "
+                onClick={() => setMenuOpen(false)}
+              >
+                About
+              </li>
+              <li
+                className=" cursor-pointer "
+                onClick={() => setMenuOpen(false)}
+              >
+                Contact
+              </li>
             </nav>
           </div>
         </div>
       )}
 
-      {show && <Login />}
+      {showLogin && <Login />}
     </div>
   );
 };

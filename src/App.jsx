@@ -8,18 +8,20 @@ import CustomerReview from "./pages/Review/CustomerReview";
 import Brands from "./pages/Brands/Brands";
 import Footer from "./components/Footer/Footer";
 import ProductsData from "./pages/Products/ProductsData";
+import Layout from "./Layout/Layout";
 
 const App = () => {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar />
       <Home />
       <ServieCards />
       <Products />
       <CustomerReview />
       <Brands />
       <Footer />
-      <ProductsData />
+      <ProductsData /> */}
+      <Layout />
     </div>
   );
 };

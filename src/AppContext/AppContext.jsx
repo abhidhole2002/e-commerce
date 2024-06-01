@@ -1,10 +1,15 @@
-import React, { createContext } from "react";
+import React, { createContext, useState } from "react";
 
 const AppContext = createContext();
 
 const AppContextProvider = ({ children }) => {
-  const value = {};
+  const [showLogin, setShowLogin] = useState(false);
+
+  const value = {
+    showLogin,
+    setShowLogin,
+  };
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
 
-export default AppContextProvider;
+export { AppContextProvider, AppContext };
