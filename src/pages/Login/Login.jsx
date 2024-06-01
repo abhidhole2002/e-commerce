@@ -6,7 +6,7 @@ import { AppContext } from "../../AppContext/AppContext";
 
 const Login = ({ onClose }) => {
   const [status, setStatus] = useState("Sign Up");
-  const { showLogin, setShowLogin } = useContext(AppContext);
+  const { setShowLogin, setIsLogin } = useContext(AppContext);
 
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -60,6 +60,7 @@ const Login = ({ onClose }) => {
             },
           });
           setShowLogin(false);
+          setIsLogin(true);
 
           setTimeout(() => {
             navigate("/");

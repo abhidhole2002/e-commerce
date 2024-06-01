@@ -4,10 +4,12 @@ import Login from "../pages/Login/Login";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { AppContext } from "../AppContext/AppContext";
+import Logout from "../pages/Logout/Logout";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { showLogin, setShowLogin } = useContext(AppContext);
+  const { showLogin, setShowLogin, isLogin, logout, setLogout } =
+    useContext(AppContext);
 
   return (
     <div className=" fixed bg-white z-0 top-0 flex justify-between w-full px-4 md:px-20 items-center py-4">
@@ -30,14 +32,33 @@ const Navbar = () => {
         </nav>
         <div className="flex items-center gap-4">
           <Icons.FaCartShopping />
-          <Link to={"/login"}>
-            <Icons.FaUser
-              className="cursor-pointer"
-              onClick={() => setShowLogin(!showLogin)}
-            />
-          </Link>
+          {isLogin ? (
+            <>
+              <div
+                className="cursor-pointer "
+                onClick={() => {
+                  setLogout(!logout);
+                }}
+              >
+                {/* <Link to={"/logout"}> */}
+                <Icons.FaUser />
+                {/* </Link> */}
+              </div>
+            </>
+          ) : (
+            <>
+              <Link to={"/login"}>
+                <h1
+                  className="cursor-pointer bg-black text-white px-4 py-1 rounded-md"
+                  onClick={() => setShowLogin(!showLogin)}
+                >
+                  Login
+                </h1>
+              </Link>
+            </>
+          )}
         </div>
-        <div className="md:hidden border-2 border-gray-500 px-1 py-1 rounded-md">
+        <div className="flex items-center md:hidden border-2 border-gray-500 px-1 py-1 rounded-md">
           <FaBars
             className="cursor-pointer"
             onClick={() => setMenuOpen(true)}
@@ -78,6 +99,8 @@ const Navbar = () => {
           </div>
         </div>
       )}
+
+      {logout && <Logout />}
 
       {showLogin && <Login />}
     </div>
