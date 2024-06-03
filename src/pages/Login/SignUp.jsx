@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import { AppContext } from "../../AppContext/AppContext";
 
 const SignUp = ({ onClose }) => {
   const [formData, setFormData] = useState({
@@ -11,7 +12,7 @@ const SignUp = ({ onClose }) => {
     email: "",
     password: "",
   });
-  const [status, setStatus] = useState("Sign Up");
+  const { showLogin, setShowLogin } = useContext(AppContext);
   const navigate = useNavigate();
 
   const handleChange = (event) => {
@@ -90,7 +91,7 @@ const SignUp = ({ onClose }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex flex-col py-10 px-5 rounded-xl">
-          <h1 className="text-center text-xl font-bold">{status}</h1>
+          <h1 className="text-center text-xl font-bold">Sign Up</h1>
 
           <form onSubmit={handleSubmit}>
             <input
@@ -149,7 +150,10 @@ const SignUp = ({ onClose }) => {
           </h1>
           <div
             className="mx-auto mt-6 bg-gray-200 p-2 rounded-full cursor-pointer"
-            onClick={onClose}
+            // onClick={onClose}
+            onClick={() => {
+              setShowLogin(!showLogin);
+            }}
           >
             <RxCross2 />
           </div>

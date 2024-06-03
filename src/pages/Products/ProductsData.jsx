@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
+import { FaHeart, FaShoppingCart } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchData } from "../../Reducers/ProductsReducer";
-import { FaHeart, FaShoppingCart } from "react-icons/fa";
-import { FiLoader } from "react-icons/fi";
+import { LuLoader } from "react-icons/lu";
 const ProductsData = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.product.data);
-  // const { isLoading } = useSelector((state) => state.product);
   const isLoading = useSelector((state) => state.product.isLoading);
 
   useEffect(() => {
@@ -16,8 +15,10 @@ const ProductsData = () => {
   return (
     <>
       {isLoading ? (
-        <div>
-          <h1 className="text-4xl">Loading....</h1>
+        <div className="fixed inset-0 flex justify-center items-center bg-gray-900 bg-opacity-50">
+          <div className="h-60 w-60 rounded-full flex items-center justify-center animate-spin">
+            <LuLoader className="text-white text-6xl" />
+          </div>
         </div>
       ) : (
         <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-4 justify-items-center mt-28">

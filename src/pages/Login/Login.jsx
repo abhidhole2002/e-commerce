@@ -48,7 +48,7 @@ const Login = ({ onClose }) => {
         navigate("/");
       }, 800);
     }
-  }, [isAuthenticate, navigate]);
+  }, [isAuthenticate, navigate, setIsLogin, setShowLogin]);
 
   useEffect(() => {
     if (error) {
@@ -57,10 +57,7 @@ const Login = ({ onClose }) => {
   }, [error]);
 
   return (
-    <div
-      className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center"
-      onClick={onClose}
-    >
+    <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center">
       <div
         className="bg-white p-5 rounded-lg shadow-lg w-80"
         onClick={(e) => e.stopPropagation()}
@@ -88,7 +85,7 @@ const Login = ({ onClose }) => {
 
             <button
               type="submit"
-              className="bg-black text-white py-1 w-24 mx-auto mt-5 rounded-3xl"
+              className="bg-black text-white py-1 w-24 mx-auto mt-5 rounded-2xl"
             >
               Login
             </button>
@@ -99,10 +96,7 @@ const Login = ({ onClose }) => {
               <span className="text-blue-600 font-semibold">Click here</span>
             </Link>
           </h1>
-          <div
-            className="mx-auto mt-6 bg-gray-200 p-2 rounded-full cursor-pointer"
-            onClick={onClose}
-          >
+          <div className="mx-auto mt-6 bg-gray-200 p-2 rounded-full cursor-pointer">
             <RxCross2 />
           </div>
         </div>

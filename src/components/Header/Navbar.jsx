@@ -53,7 +53,7 @@ const Navbar = () => {
             <>
               <Link to={"/login"}>
                 <h1
-                  className="cursor-pointer bg-black text-white px-4 py-1 rounded-md"
+                  className="cursor-pointer bg-black text-white px-4 py-1 rounded-sm"
                   onClick={() => setShowLogin(!showLogin)}
                 >
                   Login
@@ -109,7 +109,6 @@ const Navbar = () => {
         </div>
       )}
 
-      {logout && <Logout />}
       {showLogin && <Login />}
     </div>
   );

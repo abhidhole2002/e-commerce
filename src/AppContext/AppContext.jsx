@@ -7,6 +7,8 @@ const AppContextProvider = ({ children }) => {
   const [isLogin, setIsLogin] = useState(false);
   const [logout, setLogout] = useState(false);
 
+  console.log(showLogin);
+
   const value = {
     showLogin,
     setShowLogin,
