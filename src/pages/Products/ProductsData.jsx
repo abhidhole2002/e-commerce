@@ -2,22 +2,27 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchData } from "../../Reducers/ProductsReducer";
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
-
+import { FiLoader } from "react-icons/fi";
 const ProductsData = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.product.data);
+  // const { isLoading } = useSelector((state) => state.product);
+  const isLoading = useSelector((state) => state.product.isLoading);
 
   useEffect(() => {
     dispatch(fetchData());
   }, [dispatch]);
 
-  console.log(data);
   return (
     <>
-      <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-4 justify-items-center mt-28">
-        {data.map((product) => {
-          return (
-            <>
+      {isLoading ? (
+        <div>
+          <h1 className="text-4xl">Loading....</h1>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-4 justify-items-center mt-28">
+          {data.map((product) => {
+            return (
               <div
                 className="w-40 lg:w-60 flex flex-col items-center rounded overflow-hidden shadow-lg bg-white border "
                 key={product.id}
@@ -47,10 +52,10 @@ const ProductsData = () => {
                   </div>
                 </div>
               </div>
-            </>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
     </>
   );
 };

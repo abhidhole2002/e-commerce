@@ -1,17 +1,19 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { RxCross2 } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../../AppContext/AppContext";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../Reducers/authSlice";
 
 const Login = ({ onClose }) => {
   const { setShowLogin, setIsLogin, showLogin } = useContext(AppContext);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
-
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,44 +23,38 @@ const Login = ({ onClose }) => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const { isLoading, error, isAuthenticate } = useSelector(
+    (state) => state.auth
+  );
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    try {
-      const response = await fetch("https://fakestoreapi.com/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: formData.username,
-          password: formData.password,
-        }),
-      });
-
-      if (response.ok) {
-        toast.success("Login successful!", {
-          className:
-            "w-full max-w-xs p-4 text-gray-800 bg-white rounded-lg backdrop-blur-xl shadow-md border border-green-500 hover:shadow-lg hover:border-green-700 transform transition-transform duration-150 ease-in-out hover:-translate-y-1 hover:scale-110",
-          iconTheme: {
-            primary: "#4CAF50",
-            secondary: "#FFFFFF",
-          },
-        });
-
-        setShowLogin(false);
-        setIsLogin(true);
-        setTimeout(() => {
-          navigate("/");
-        }, 800);
-      } else {
-        toast.error("Login failed. Please check your credentials.");
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-      toast.error("Login failed. Please check your credentials.");
-    }
+    dispatch(login(formData));
   };
+
+  useEffect(() => {
+    if (isAuthenticate) {
+      toast.success("Login successful!", {
+        className:
+          "w-full max-w-xs p-4 text-gray-800 bg-white rounded-lg backdrop-blur-xl shadow-md border border-green-500 hover:shadow-lg hover:border-green-700 transform transition-transform duration-150 ease-in-out hover:-translate-y-1 hover:scale-110",
+        iconTheme: {
+          primary: "#4CAF50",
+          secondary: "#FFFFFF",
+        },
+      });
+      setShowLogin(false);
+      setIsLogin(true);
+      setTimeout(() => {
+        navigate("/");
+      }, 800);
+    }
+  }, [isAuthenticate, navigate]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+  }, [error]);
 
   return (
     <div

@@ -1,13 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const login = createAsyncThunk("auth/login", async (credentials) => {
-  const response = await axios.post(
-    "https://fakestoreapi.com/auth/login",
-    credentials
-  );
-  return response.data;
-});
+export const login = createAsyncThunk(
+  "auth/login",
+  async (credentials, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        "https://fakestoreapi.com/auth/login",
+        credentials
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 const initialState = {
   user: null,
@@ -26,7 +33,7 @@ const authSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    builder.addCase(login.pending, (state) => {
+    builder.addCase(login.pending, (state, action) => {
       state.isLoading = true;
       state.error = null;
     });
@@ -35,11 +42,13 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.user = action.payload;
       state.isAuthenticate = true;
+      state.setShowLogin = false;
     });
 
     builder.addCase(login.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = action.error.message;
+      state.error =
+        action.payload || "Login failed. Please check your credentials.";
       state.isAuthenticate = false;
     });
   },
