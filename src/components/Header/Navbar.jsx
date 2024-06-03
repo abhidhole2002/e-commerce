@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
-import { Icons } from "../assets/assets";
-import Login from "../pages/Login/Login";
+import { Icons } from "../../assets/assets";
+import Login from "../../pages/Login/Login";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { AppContext } from "../AppContext/AppContext";
-import Logout from "../pages/Logout/Logout";
+import { AppContext } from "../../AppContext/AppContext";
+import Logout from "../../pages/Logout/Logout";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -14,13 +14,17 @@ const Navbar = () => {
   return (
     <div className=" fixed bg-white z-0 top-0 flex justify-between w-full px-4 md:px-20 items-center py-4">
       <div className="flex items-center gap-4">
-        <img
-          src={Icons.logo}
-          alt="logo"
-          className="w-32 md:w-40 h-12 md:h-14"
-        />
+        <Link to={"/"}>
+          <img
+            src={Icons.logo}
+            alt="logo"
+            className="w-32 md:w-40 h-12 md:h-14"
+          />
+        </Link>
         <nav className="hidden md:flex items-center list-none gap-4">
-          <li className="cursor-pointer">Everything</li>
+          <Link to={"/products"}>
+            <li className="cursor-pointer">Everything</li>
+          </Link>
           <li className="cursor-pointer">Groceries</li>
           <li className="cursor-pointer">Juice</li>
         </nav>
@@ -74,9 +78,14 @@ const Navbar = () => {
               onClick={() => setMenuOpen(false)}
             />
             <nav className="flex flex-col list-none gap-4">
-              <li className="cursor-pointer" onClick={() => setMenuOpen(false)}>
-                Everything
-              </li>
+              <Link to={"/products"}>
+                <li
+                  className="cursor-pointer"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Everything
+                </li>
+              </Link>
               <li className="cursor-pointer" onClick={() => setMenuOpen(false)}>
                 Groceries
               </li>
@@ -101,7 +110,6 @@ const Navbar = () => {
       )}
 
       {logout && <Logout />}
-
       {showLogin && <Login />}
     </div>
   );

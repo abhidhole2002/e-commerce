@@ -41,30 +41,21 @@ const Login = ({ onClose }) => {
         });
 
         if (response.ok) {
-          const data = await response.json();
-          console.log(data);
           toast.success("Login successful!", {
-            style: {
-              border: "2px solid #4CAF50",
-              padding: "16px",
-              color: "#4CAF50",
-              background: "rgba(76, 175, 80, 0.1)",
-              backdropFilter: "blur(10px)",
-              borderRadius: "8px",
-              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-              animation: "fadeInUp 0.3s, fadeOut 0.3s 2s forwards",
-            },
+            className:
+              "w-full max-w-xs p-4 text-gray-800 bg-white rounded-lg backdrop-blur-xl shadow-md border border-green-500 hover:shadow-lg hover:border-green-700 transform transition-transform duration-150 ease-in-out hover:-translate-y-1 hover:scale-110",
             iconTheme: {
               primary: "#4CAF50",
               secondary: "#FFFFFF",
             },
           });
+
           setShowLogin(false);
           setIsLogin(true);
 
           setTimeout(() => {
             navigate("/");
-          }, 500);
+          }, 800);
         } else {
           toast.error("Login failed. Please check your credentials.");
         }

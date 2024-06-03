@@ -5,10 +5,10 @@ const Footer = () => {
   return (
     <div className="bg-gray-800 ">
       <div className="mt-10 text-white flex flex-col items-center gap-10 lg:flex-row justify-around py-10 ">
-        <div>
+        <div className="flex flex-col items-center">
           <img src={Icons.logo} alt="" className="h-16 mb-4" />
 
-          <p className="w-60">
+          <p className="w-60 text-center lg:text-left">
             Maecenas mi justo, interdum at consectetur vel, tristique et arcu.
             Ut quis eros blandit, ultrices diam in, elementum ex. Suspendisse
             quis faucibus urna. Suspendisse pellentesque
@@ -38,8 +38,8 @@ const Footer = () => {
         </div>
       </div>
       <hr class="py-5 mx-10" />
-      <div className="text-white flex justify-between px-24 items-center pb-3">
-        <h1>Copyright © 2024 | Organic Store</h1>
+      <div className="text-white flex flex-col lg:flex-row  lg:justify-between px-24 items-center pb-3">
+        <h1 className="text-center mb-3">Copyright © 2024 | Organic Store</h1>
         <div className="flex gap-5 text-2xl ">
           <Icons.FaFacebook />
           <Icons.FaTwitterSquare />
