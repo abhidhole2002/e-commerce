@@ -108,7 +108,7 @@ const Navbar = () => {
           </div>
         </div>
       )}
-
+      {logout && <Logout />}
       {showLogin && <Login />}
     </div>
   );
