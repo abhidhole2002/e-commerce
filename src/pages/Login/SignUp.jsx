@@ -1,43 +1,60 @@
-import React, { useContext, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import React, { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
+import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import { AppContext } from "../../AppContext/AppContext";
 
-const Login = ({ onClose }) => {
-  const { setShowLogin, setIsLogin, showLogin } = useContext(AppContext);
+const SignUp = ({ onClose }) => {
   const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
     username: "",
+    email: "",
     password: "",
   });
-
+  const [status, setStatus] = useState("Sign Up");
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       [name]: value,
-    });
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://fakestoreapi.com/auth/login", {
+      const response = await fetch("https://fakestoreapi.com/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          email: formData.email,
           username: formData.username,
           password: formData.password,
+          name: {
+            firstname: formData.firstName,
+            lastname: formData.lastName,
+          },
+          address: {
+            city: "kilcoole",
+            street: "7835 new road",
+            number: 3,
+            zipcode: "12926-3874",
+            geolocation: {
+              lat: "-37.3159",
+              long: "81.1496",
+            },
+          },
+          phone: "1-570-236-7033",
         }),
       });
 
       if (response.ok) {
-        toast.success("Login successful!", {
+        toast.success("Account created successfully!", {
           className:
             "w-full max-w-xs p-4 text-gray-800 bg-white rounded-lg backdrop-blur-xl shadow-md border border-green-500 hover:shadow-lg hover:border-green-700 transform transition-transform duration-150 ease-in-out hover:-translate-y-1 hover:scale-110",
           iconTheme: {
@@ -45,18 +62,21 @@ const Login = ({ onClose }) => {
             secondary: "#FFFFFF",
           },
         });
-
-        setShowLogin(false);
-        setIsLogin(true);
+        setFormData({
+          firstName: "",
+          lastName: "",
+          username: "",
+          email: "",
+          password: "",
+        });
         setTimeout(() => {
-          navigate("/");
-        }, 800);
+          navigate("/login");
+        }, 1000);
       } else {
-        toast.error("Login failed. Please check your credentials.");
+        console.error("Failed to create account.");
       }
     } catch (error) {
-      console.error("Login error:", error);
-      toast.error("Login failed. Please check your credentials.");
+      console.error("Error creating account:", error);
     }
   };
 
@@ -70,9 +90,33 @@ const Login = ({ onClose }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex flex-col py-10 px-5 rounded-xl">
-          <h1 className="text-center text-xl font-bold">Login</h1>
+          <h1 className="text-center text-xl font-bold">{status}</h1>
 
           <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+              placeholder="First Name"
+              className="focus:outline-none border border-gray-300 mt-5 py-2 px-4 rounded-2xl shadow-lg focus:ring-2 focus:ring-gray-500 transition duration-300 ease-in-out transform hover:scale-105"
+            />
+            <input
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+              placeholder="Last Name"
+              className="focus:outline-none border border-gray-300 mt-5 py-2 px-4 rounded-2xl shadow-lg focus:ring-2 focus:ring-gray-500 transition duration-300 ease-in-out transform hover:scale-105"
+            />
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Email"
+              className="focus:outline-none border border-gray-300 mt-5 py-2 px-4 rounded-2xl shadow-lg focus:ring-2 focus:ring-gray-500 transition duration-300 ease-in-out transform hover:scale-105"
+            />
             <input
               type="text"
               name="username"
@@ -94,12 +138,12 @@ const Login = ({ onClose }) => {
               type="submit"
               className="bg-black text-white py-1 w-24 mx-auto mt-5 rounded-3xl"
             >
-              Login
+              Register
             </button>
           </form>
           <h1 className="text-sm mt-3 px-2 font-semibold">
-            Don't have an account ?{" "}
-            <Link to={"/signup"}>
+            Already have an account?{" "}
+            <Link to={"/login"}>
               <span className="text-blue-600 font-semibold">Click here</span>
             </Link>
           </h1>
@@ -116,4 +160,4 @@ const Login = ({ onClose }) => {
   );
 };
 
-export default Login;
+export default SignUp;
