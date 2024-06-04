@@ -35,7 +35,9 @@ const Navbar = () => {
           <li className="cursor-pointer">Contact</li>
         </nav>
         <div className="flex items-center gap-4">
-          <Icons.FaCartShopping />
+          <Link to={"/mycart"}>
+            <Icons.FaCartShopping />
+          </Link>
           {isLogin ? (
             <>
               <div

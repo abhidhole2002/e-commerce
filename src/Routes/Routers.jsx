@@ -6,6 +6,7 @@ import Logout from "../pages/Logout/Logout";
 import ProductsData from "../pages/Products/ProductsData";
 import SignUp from "../pages/Login/SignUp";
 import ProtectedRouting from "./ProtectedRouting";
+import Cart from "../pages/Cart/Cart";
 
 const Routers = () => {
   return (
@@ -18,6 +19,7 @@ const Routers = () => {
         element={<ProtectedRouting component={ProductsData} />}
       />
       <Route path="/signup" element={<SignUp />} />
+      <Route path="/mycart" element={<Cart />} />
     </Routes>
   );
 };

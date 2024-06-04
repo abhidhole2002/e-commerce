@@ -37,7 +37,7 @@ const Footer = () => {
           </nav>
         </div>
       </div>
-      <hr class="py-5 mx-10" />
+      <hr className="py-5 mx-10" />
       <div className="text-white flex flex-col lg:flex-row  lg:justify-between px-24 items-center pb-3">
         <h1 className="text-center mb-3">Copyright © 2024 | Organic Store</h1>
         <div className="flex gap-5 text-2xl ">

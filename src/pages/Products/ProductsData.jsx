@@ -3,11 +3,15 @@ import { FaHeart, FaShoppingCart } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchData } from "../../Reducers/ProductsReducer";
 import { LuLoader } from "react-icons/lu";
+import { addToCart, removeFromCart } from "../../Reducers/Cart";
+
 const ProductsData = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.product.data);
   const isLoading = useSelector((state) => state.product.isLoading);
+  const cart = useSelector((state) => state.cart);
 
+  console.log("this is cart => ", cart);
   useEffect(() => {
     dispatch(fetchData());
   }, [dispatch]);
@@ -43,10 +47,27 @@ const ProductsData = () => {
                     ₹{product.price}
                   </p>
                   <div className="flex items-center justify-between">
-                    <button className="bg-gray-800 text-white px-2 py-2 rounded hover:bg-gray-900 transition-colors duration-300 flex items-center text-xs">
-                      <FaShoppingCart className="mr-2 " />
-                      Add to Cart
-                    </button>
+                    <div className="flex flex-col gap-2 item-center">
+                      <button
+                        className="bg-gray-800 text-white px-2 py-2 rounded hover:bg-gray-900 transition-colors duration-300 flex items-center text-xs"
+                        onClick={() => {
+                          dispatch(addToCart(product));
+                        }}
+                      >
+                        <FaShoppingCart className="mr-2 " />
+                        Add to Cart
+                      </button>
+
+                      <button
+                        className="bg-gray-800 text-white px-2 py-2 rounded hover:bg-gray-900 transition-colors duration-300 flex items-center text-xs"
+                        onClick={() => {
+                          dispatch(removeFromCart(product.id));
+                        }}
+                      >
+                        <FaShoppingCart className="mr-2 " />
+                        Remove
+                      </button>
+                    </div>
                     <button className="text-gray-800 hover:text-red-600 transition-colors duration-300">
                       <FaHeart className="w-5 h-5" />
                     </button>

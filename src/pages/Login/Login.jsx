@@ -95,6 +95,10 @@ const Login = ({ onClose }) => {
             <Link to={"/signup"}>
               <span className="text-blue-600 font-semibold">Click here</span>
             </Link>
+            <div>
+              <h1>username : mor_2314 </h1>
+              <h1>password : 83r5^_ </h1>
+            </div>
           </h1>
           <div className="mx-auto mt-6 bg-gray-200 p-2 rounded-full cursor-pointer">
             <RxCross2 />
