@@ -5,9 +5,12 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { AppContext } from "../../AppContext/AppContext";
 import Logout from "../../pages/Logout/Logout";
-
+import { useSelector } from "react-redux";
+import { FaCartShopping } from "react-icons/fa6";
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { cart } = useSelector((state) => state.cart);
+
   const { showLogin, setShowLogin, isLogin, logout, setLogout } =
     useContext(AppContext);
 
@@ -36,7 +39,14 @@ const Navbar = () => {
         </nav>
         <div className="flex items-center gap-4">
           <Link to={"/mycart"}>
-            <Icons.FaCartShopping />
+            <div className="relative">
+              <FaCartShopping className="text-2xl" />
+              {cart.length > 0 && (
+                <h1 className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 border border-black bg-black text-white font-bold text-center w-5 h-5  flex items-center justify-center rounded-full">
+                  {cart.length}
+                </h1>
+              )}
+            </div>
           </Link>
           {isLogin ? (
             <>
@@ -46,9 +56,7 @@ const Navbar = () => {
                   setLogout(!logout);
                 }}
               >
-                {/* <Link to={"/logout"}> */}
-                <Icons.FaUser />
-                {/* </Link> */}
+                <Icons.FaUser className="text-2xl" />
               </div>
             </>
           ) : (

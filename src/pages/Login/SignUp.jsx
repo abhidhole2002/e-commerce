@@ -6,11 +6,10 @@ import { AppContext } from "../../AppContext/AppContext";
 
 const SignUp = ({ onClose }) => {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    username: "",
+    name: "",
     email: "",
     password: "",
+    mobile: "",
   });
   const { showLogin, setShowLogin } = useContext(AppContext);
   const navigate = useNavigate();
@@ -27,30 +26,17 @@ const SignUp = ({ onClose }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://fakestoreapi.com/users", {
+      const response = await fetch("https://node-api-eta-blush.vercel.app/api/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          name: formData.name,
           email: formData.email,
-          username: formData.username,
           password: formData.password,
-          name: {
-            firstname: formData.firstName,
-            lastname: formData.lastName,
-          },
-          address: {
-            city: "kilcoole",
-            street: "7835 new road",
-            number: 3,
-            zipcode: "12926-3874",
-            geolocation: {
-              lat: "-37.3159",
-              long: "81.1496",
-            },
-          },
-          phone: "1-570-236-7033",
+          address : "address",
+          mobile: formData.mobile,
         }),
       });
 
@@ -64,11 +50,10 @@ const SignUp = ({ onClose }) => {
           },
         });
         setFormData({
-          firstName: "",
-          lastName: "",
-          username: "",
+          name: "",
           email: "",
           password: "",
+          mobile: "",
         });
         setTimeout(() => {
           navigate("/login");
@@ -96,20 +81,13 @@ const SignUp = ({ onClose }) => {
           <form onSubmit={handleSubmit}>
             <input
               type="text"
-              name="firstName"
-              value={formData.firstName}
+              name="name"
+              value={formData.name}
               onChange={handleChange}
-              placeholder="First Name"
+              placeholder="Full Name"
               className="focus:outline-none border border-gray-300 mt-5 py-2 px-4 rounded-2xl shadow-lg focus:ring-2 focus:ring-gray-500 transition duration-300 ease-in-out transform hover:scale-105"
             />
-            <input
-              type="text"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              placeholder="Last Name"
-              className="focus:outline-none border border-gray-300 mt-5 py-2 px-4 rounded-2xl shadow-lg focus:ring-2 focus:ring-gray-500 transition duration-300 ease-in-out transform hover:scale-105"
-            />
+
             <input
               type="email"
               name="email"
@@ -118,20 +96,22 @@ const SignUp = ({ onClose }) => {
               placeholder="Email"
               className="focus:outline-none border border-gray-300 mt-5 py-2 px-4 rounded-2xl shadow-lg focus:ring-2 focus:ring-gray-500 transition duration-300 ease-in-out transform hover:scale-105"
             />
-            <input
-              type="text"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              placeholder="User Name"
-              className="focus:outline-none border border-gray-300 mt-5 py-2 px-4 rounded-2xl shadow-lg focus:ring-2 focus:ring-gray-500 transition duration-300 ease-in-out transform hover:scale-105"
-            />
+
             <input
               type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
               placeholder="Password"
+              className="focus:outline-none border border-gray-300 mt-5 py-2 px-4 rounded-2xl shadow-lg focus:ring-2 focus:ring-gray-500 transition duration-300 ease-in-out transform hover:scale-105"
+            />
+
+            <input
+              type="text"
+              name="mobile"
+              value={formData.mobile}
+              onChange={handleChange}
+              placeholder="Mobile"
               className="focus:outline-none border border-gray-300 mt-5 py-2 px-4 rounded-2xl shadow-lg focus:ring-2 focus:ring-gray-500 transition duration-300 ease-in-out transform hover:scale-105"
             />
 

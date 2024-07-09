@@ -72,7 +72,7 @@ const Login = ({ onClose }) => {
               value={formData.username}
               onChange={handleChange}
               placeholder="User Name"
-              className="focus:outline-none border border-gray-300 mt-5 py-2 px-4 rounded-2xl shadow-lg focus:ring-2 focus:ring-gray-500 transition duration-300 ease-in-out transform hover:scale-105"
+              className="focus:outline-none border border-gray-300 mt-5 py-2 px-4 rounded-2xl shadow-lg focus:ring-2 focus:ring-gray-300 transition duration-300 ease-in-out transform hover:scale-105"
             />
             <input
               type="password"
@@ -80,7 +80,7 @@ const Login = ({ onClose }) => {
               value={formData.password}
               onChange={handleChange}
               placeholder="Password"
-              className="focus:outline-none border border-gray-300 mt-5 py-2 px-4 rounded-2xl shadow-lg focus:ring-2 focus:ring-gray-500 transition duration-300 ease-in-out transform hover:scale-105"
+              className="focus:outline-none border border-gray-300 mt-5 py-2 px-4 rounded-2xl shadow-lg focus:ring-2 focus:ring-gray-300 transition duration-300 ease-in-out transform hover:scale-105"
             />
 
             <button
