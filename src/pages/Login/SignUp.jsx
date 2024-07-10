@@ -3,6 +3,7 @@ import { RxCross2 } from "react-icons/rx";
 import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../../AppContext/AppContext";
+import apiUrl from "../../../apiUrl";
 
 const SignUp = ({ onClose }) => {
   const [formData, setFormData] = useState({
@@ -26,7 +27,7 @@ const SignUp = ({ onClose }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://node-api-lac-seven.vercel.app/api/user", {
+      const response = await fetch(`${apiUrl}/api/user`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,7 +36,7 @@ const SignUp = ({ onClose }) => {
           name: formData.name,
           email: formData.email,
           password: formData.password,
-          address : "address",
+          address: "address",
           mobile: formData.mobile,
         }),
       });
