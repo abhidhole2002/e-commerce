@@ -1,18 +1,18 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { cartdata, removeFromCart } from "../../Reducers/Cart";
+import React from "react";
 import { TbMoodEmptyFilled } from "react-icons/tb";
+import { useDispatch, useSelector } from "react-redux";
+import { removeFromCart } from "../../Reducers/Cart";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.cart);
-  const id = useSelector((state) => state.user.user._id);
+  const id = useSelector((state) => state.auth.user.user._id);
 
   useEffect(() => {
     dispatch(cartdata(id));
   }, [dispatch]);
 
-  console.log("cart ", cart);
+  console.log("cart ", id);
 
   if (cart.length === 0) {
     return (
