@@ -12,6 +12,7 @@ const Cart = () => {
     dispatch(cartdata(id));
   }, [dispatch]);
 
+  console.log("object", cart);
   console.log("cart ", id);
 
   if (cart.length === 0) {
