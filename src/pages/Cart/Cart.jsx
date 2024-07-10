@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { TbMoodEmptyFilled } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart } from "../../Reducers/Cart";
