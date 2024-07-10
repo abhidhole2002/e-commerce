@@ -1,21 +1,25 @@
 import React, { useContext } from "react";
 import { AppContext } from "../../AppContext/AppContext";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Logout = () => {
   const { setIsLogin, setLogout } = useContext(AppContext);
   const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user.user);
+
 
   return (
     <div className="absolute top-24 right-4  w-60 h-80 bg-white shadow-lg rounded-lg p-6 flex flex-col items-center justify-between z-50">
       <div className="flex flex-col items-center">
         <img
-          src="https://via.placeholder.com/100"
+          // src="https://via.placeholder.com/100"
+          src={user.profileImage}
           alt="Profile"
           className="w-24 h-24 rounded-full mb-4 shadow-md"
         />
-        <h1 className="text-xl font-semibold text-gray-800">User Name</h1>
-        <p className="text-sm text-gray-500">user@example.com</p>
+        <h1 className="text-xl font-semibold text-gray-800">{user.name}</h1>
+        <p className="text-sm text-gray-500">{user.email}</p>
       </div>
       <button
         onClick={() => {
