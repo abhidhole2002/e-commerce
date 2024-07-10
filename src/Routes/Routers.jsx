@@ -18,6 +18,8 @@ const Routers = () => {
         path="/products"
         element={<ProtectedRouting component={ProductsData} />}
       />
+      <Route path="/products" element={<ProductsData />} />
+
       <Route path="/signup" element={<SignUp />} />
       <Route path="/mycart" element={<Cart />} />
     </Routes>

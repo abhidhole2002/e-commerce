@@ -6,7 +6,7 @@ export const login = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "https://node-api-eta-blush.vercel.app/api/login",
+        "https://node-api-lac-seven.vercel.app/api/login",
         credentials
       );
       return response.data;

@@ -26,7 +26,7 @@ const SignUp = ({ onClose }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://node-api-eta-blush.vercel.app/api/user", {
+      const response = await fetch("https://node-api-lac-seven.vercel.app/api/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
