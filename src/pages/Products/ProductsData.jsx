@@ -46,32 +46,32 @@ const ProductsData = () => {
                   <p className="text-gray-700 text-base mb-4">
                     ₹{product.price}
                   </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex flex-col gap-2 item-center">
-                      <button
-                        className="bg-gray-800 text-white px-2 py-2 rounded hover:bg-gray-900 transition-colors duration-300 flex items-center text-xs"
-                        onClick={() => {
-                          dispatch(addToCart(product));
-                        }}
-                      >
-                        <FaShoppingCart className="mr-2 " />
-                        Add to Cart
-                      </button>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex flex-col gap-2 item-center">
+                    <button
+                      className="bg-gray-800 text-white px-2 py-2 rounded hover:bg-gray-900 transition-colors duration-300 flex items-center text-xs"
+                      onClick={() => {
+                        dispatch(addToCart(product));
+                      }}
+                    >
+                      <FaShoppingCart className="mr-2 " />
+                      Add to Cart
+                    </button>
 
-                      <button
-                        className="bg-gray-800 text-white px-2 py-2 rounded hover:bg-gray-900 transition-colors duration-300 flex items-center text-xs"
-                        onClick={() => {
-                          dispatch(removeFromCart(product.id));
-                        }}
-                      >
-                        <FaShoppingCart className="mr-2 " />
-                        Remove
-                      </button>
-                    </div>
-                    <button className="text-gray-800 hover:text-red-600 transition-colors duration-300">
-                      <FaHeart className="w-5 h-5" />
+                    <button
+                      className="bg-gray-800 text-white px-2 py-2 rounded hover:bg-gray-900 transition-colors duration-300 flex items-center text-xs"
+                      onClick={() => {
+                        dispatch(removeFromCart(product.id));
+                      }}
+                    >
+                      <FaShoppingCart className="mr-2 " />
+                      Remove
                     </button>
                   </div>
+                  <button className="text-gray-800 hover:text-red-600 transition-colors duration-300">
+                    <FaHeart className="w-5 h-5" />
+                  </button>
                 </div>
               </div>
             );
