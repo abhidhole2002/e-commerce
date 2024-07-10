@@ -1,14 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import apiUrl from "../../config";
 
 export const login = createAsyncThunk(
   "auth/login",
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        "https://node-api-lac-seven.vercel.app/api/login",
-        credentials
-      );
+      const response = await axios.post(`${apiUrl}/api/login`, credentials);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

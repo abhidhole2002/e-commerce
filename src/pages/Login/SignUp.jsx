@@ -3,7 +3,7 @@ import { RxCross2 } from "react-icons/rx";
 import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../../AppContext/AppContext";
-import apiUrl from "../../../apiUrl";
+import apiUrl from "../../../config";
 
 const SignUp = ({ onClose }) => {
   const [formData, setFormData] = useState({
