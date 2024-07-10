@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { TbMoodEmptyFilled } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart } from "../../Reducers/Cart";
+import { cartdata, removeFromCart } from "../../Reducers/Cart";
 
 const Cart = () => {
   const dispatch = useDispatch();
