@@ -109,7 +109,7 @@ const ProductsData = () => {
       ) : (
         <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-4 justify-items-center mt-28 px-2">
           {data.map((product) => (
-            <div className="bg-white w-[180px] lg:w-60 rounded-lg shadow-lg overflow-hidden  ">
+            <div className="bg-white w-[170px] lg:w-60 rounded-lg shadow-lg overflow-hidden  ">
               <img
                 src={product.imageUrl}
                 alt={product.name}
