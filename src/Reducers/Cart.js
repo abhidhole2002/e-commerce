@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import apiUrl from "../../config";
 
-export const cartdata = createAsyncThunk(
+export const fetchCart = createAsyncThunk(
   "cartdata",
   async (id, { rejectWithValue }) => {
     try {

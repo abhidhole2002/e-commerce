@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { TbMoodEmptyFilled } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
-import { cartdata, removeFromCart } from "../../Reducers/Cart";
+import { fetchCart } from "../../Reducers/Cart";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -9,7 +9,7 @@ const Cart = () => {
   const id = useSelector((state) => state.auth.user.user._id);
 
   useEffect(() => {
-    dispatch(cartdata(id));
+    dispatch(fetchCart(id));
   }, [dispatch]);
 
   console.log("object", cart);
