@@ -109,11 +109,11 @@ const ProductsData = () => {
       ) : (
         <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-4 justify-items-center mt-28">
           {data.map((product) => (
-            <div className="bg-white w-60 rounded-lg shadow-lg overflow-hidden">
+            <div className="bg-white w-[180px] lg:w-60 rounded-lg shadow-lg overflow-hidden  ">
               <img
                 src={product.imageUrl}
                 alt={product.name}
-                className="h-64 w-full object-cover object-center"
+                className="h-28 w-full object-cover object-center"
               />
               <div className="p-4">
                 <h2 className="text-gray-900 font-bold text-xl mb-2">
@@ -125,10 +125,13 @@ const ProductsData = () => {
                     ${product.price}
                   </span>
                   <div className=" flex flex-col gap-3">
-                    <button className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 mr-2 rounded text-sm w-36">
+                    <button
+                      className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 mr-2 rounded text-xs w-24 
+                    "
+                    >
                       Add to Cart
                     </button>
-                    <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded text-sm w-36">
+                    <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded text-xs w-24">
                       Add to Wishlist
                     </button>
                   </div>
