@@ -1,57 +1,56 @@
-import React, { useEffect } from "react";
-import { TbMoodEmptyFilled } from "react-icons/tb";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchCart } from "../../Reducers/Cart";
+import React from "react";
+import useFetchCart from "../../hooks/useFetchCart";
+import { useSelector } from "react-redux";
 
 const Cart = () => {
-  const dispatch = useDispatch();
-  const { cart } = useSelector((state) => state.cart);
   const id = useSelector((state) => state.auth.user.user._id);
+  const { cartData, isLoading, error } = useFetchCart(id);
 
-  useEffect(() => {
-    dispatch(fetchCart(id));
-  }, [dispatch]);
-
-  console.log("object", cart);
-  console.log("cart ", id);
-
-  if (cart.length === 0) {
+  if (isLoading) {
     return (
-      <div className="flex flex-col items-center container mx-auto p-4 mt-28 lg:mt-24 text-center">
-        <h1 className="lg:text-center text-center text-3xl font-extrabold">
-          Your Cart is empty
-        </h1>
-        <div className="text-9xl mt-16">
-          <TbMoodEmptyFilled />
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="loader mb-5"></div>
+          <div className="text-lg font-semibold">Loading your cart...</div>
         </div>
       </div>
     );
   }
 
+  if (error) {
+    return (
+      <div className="text-center mt-5 text-red-500">
+        Error: {error.message}
+      </div>
+    );
+  }
+
+  if (!cartData || !cartData.products) {
+    return <div className="text-center mt-5">No products in cart.</div>;
+  }
+
   return (
-    <div className="container mx-auto p-4 mt-28 lg:mt-24 text-center">
-      <h2 className="text-2xl font-bold mb-10">Your Shopping Cart</h2>
-      <div className="grid grid-cols-1 justify-items-center md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {cart.map((item) => (
+    <div className="container mx-auto p-5">
+      <h1 className="text-3xl font-bold mb-5 text-center">Your Cart</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-10 justify-items-center">
+        {cartData.products.map((item) => (
           <div
             key={item.id}
-            className="bg-white shadow-md rounded-lg p-4 lg:w-80 w-60 border"
+            className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden w-44"
           >
-            <div className="flex items-center gap-3">
-              <img
-                src={item.image}
-                alt={item.title}
-                className="lg:w-40 lg:h-40 h-20 w-20 object-cover"
-              />
-              <div>
-                <h3 className="font-semibold text-xs lg:text-lg">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-gray-600">${item.price}</p>
-                <button
-                  onClick={() => dispatch(removeFromCart(item.id))}
-                  className="mt-2 bg-red-500 hover:bg-red-700 text-white text-sm py-1 px-2 lg:text-lg font-bold lg:py-2 lg:px-4 rounded"
-                >
+            <img
+              src={item.productId.imageUrl}
+              alt={item.productId.name}
+              className="w-full h-48 object-cover"
+            />
+            <div className="p-5">
+              <h2 className="text-xl font-bold mb-2">{item.productId.name}</h2>
+              <p className="text-gray-700 mb-4">{item.productId.description}</p>
+              <div className="flex justify-between items-center">
+                <span className="text-lg font-bold text-green-600">
+                  ${item.productId.price}
+                </span>
+                <button className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600">
                   Remove
                 </button>
               </div>

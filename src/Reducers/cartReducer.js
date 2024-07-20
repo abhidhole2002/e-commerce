@@ -15,41 +15,33 @@ export const fetchCart = createAsyncThunk(
 );
 
 const initialState = {
-  cart: [],
+  cartData: [],
   isLoading: false,
   error: null,
 };
 
-const Cart = createSlice({
+const cartReducer = createSlice({
   name: "cart",
   initialState,
-  reducers: {
-    addToCart: (state, action) => {
-      state.cart.push(action.payload);
-    },
-    removeFromCart: (state, action) => {
-      state.cart = state.cart.filter((item) => item.id !== action.payload);
-    },
-  },
 
   extraReducers: (builder) => {
-    builder.addCase(cartdata.pending, (state, action) => {
+    builder.addCase(fetchCart.pending, (state, action) => {
       state.isLoading = true;
       state.error = null;
     });
 
-    builder.addCase(cartdata.fulfilled, (state, action) => {
+    builder.addCase(fetchCart.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.cart = action.payload;
+      state.cartData = action.payload;
       state.error = null;
     });
 
-    builder.addCase(cartdata.rejected, (state, action) => {
+    builder.addCase(fetchCart.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     });
   },
 });
 
-export const { addToCart, removeFromCart } = Cart.actions;
-export default Cart.reducer;
+export const {} = cartReducer.actions;
+export default cartReducer.reducer;

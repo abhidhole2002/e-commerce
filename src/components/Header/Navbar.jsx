@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { FaCartShopping } from "react-icons/fa6";
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { cart } = useSelector((state) => state.cart);
+  const { cartData } = useSelector((state) => state.cart);
 
   const { showLogin, setShowLogin, isLogin, logout, setLogout } =
     useContext(AppContext);
@@ -41,9 +41,9 @@ const Navbar = () => {
           <Link to={"/mycart"}>
             <div className="relative">
               <FaCartShopping className="text-2xl" />
-              {cart.length > 0 && (
+              {cartData.length > 0 && (
                 <h1 className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 border border-black bg-black text-white font-bold text-center w-5 h-5  flex items-center justify-center rounded-full">
-                  {cart.length}
+                  {cartData.length}
                 </h1>
               )}
             </div>
