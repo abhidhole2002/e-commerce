@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { RxCross2 } from "react-icons/rx";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../../AppContext/AppContext";
-import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../Reducers/authSlice";
 
 const Login = ({ onClose }) => {
@@ -57,7 +57,7 @@ const Login = ({ onClose }) => {
   }, [error]);
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center">
+    <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center ">
       <div
         className="bg-white p-5 rounded-lg shadow-lg w-80"
         onClick={(e) => e.stopPropagation()}
@@ -72,6 +72,7 @@ const Login = ({ onClose }) => {
               value={formData.email}
               onChange={handleChange}
               placeholder="User Name"
+              autoComplete="current password"
               className="focus:outline-none border border-gray-300 mt-5 py-2 px-4 rounded-2xl shadow-lg focus:ring-2 focus:ring-gray-300 transition duration-300 ease-in-out transform hover:scale-105"
             />
             <input
@@ -80,6 +81,7 @@ const Login = ({ onClose }) => {
               value={formData.password}
               onChange={handleChange}
               placeholder="Password"
+              autoComplete="current password"
               className="focus:outline-none border border-gray-300 mt-5 py-2 px-4 rounded-2xl shadow-lg focus:ring-2 focus:ring-gray-300 transition duration-300 ease-in-out transform hover:scale-105"
             />
 

@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Icons } from "../../assets/assets";
-import ServieCards from "../Cards/ServiceCards";
-import Products from "../SellingProducts/Products";
-import CustomerReview from "../Review/CustomerReview";
 import Brands from "../Brands/Brands";
+import ServieCards from "../Cards/ServiceCards";
+import CustomerReview from "../Review/CustomerReview";
+import Products from "../SellingProducts/Products";
+import { AppContext } from "../../AppContext/AppContext";
 
 const Home = () => {
+  const { showLogin, setShowLogin, isLogin, logout, setLogout } =
+    useContext(AppContext);
   return (
     <>
-      <div className="bg-gray-100 flex flex-col lg:flex-row items-center justify-center w-full py-10 gap-8 p-10 h-screen ">
-        <div>
+      <div className=" bg-gray-100 flex flex-col lg:flex-row items-center justify-center w-full py-10 gap-8 p-10 h-screen ">
+        <div className="mt-36">
           <img src={Icons.mainimg} alt="" />
         </div>
         <div>
