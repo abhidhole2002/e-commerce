@@ -10,8 +10,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { cartData } = useSelector((state) => state.cart);
 
-  const { isLogin, logout, setLogout, setdemo } =
-    useContext(AppContext);
+  const { isLogin, logout, setLogout, setdemo } = useContext(AppContext);
 
   return (
     <div className=" fixed bg-white z-0 top-0 flex justify-between w-full px-4 md:px-20 items-center py-4">
@@ -82,7 +81,7 @@ const Navbar = () => {
 
       {menuOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 md:hidden">
-          <div className="absolute top-0 right-0 bg-white w-3/4 h-full shadow-lg p-4">
+          <div className="absolute top-0 right-0 bg-gray-100 w-3/4 h-full  p-6 ">
             <FaTimes
               className="cursor-pointer mb-4"
               onClick={() => setMenuOpen(false)}

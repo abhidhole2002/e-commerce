@@ -25,6 +25,28 @@ export const addToCart = createAsyncThunk(
   }
 );
 
+export const removeFromCart = createAsyncThunk(
+  "cart/remove",
+  async (productId, { getState, dispatch, rejectWithValue }) => {
+    try {
+      console.log("called");
+      const state = getState();
+      const userId = state.auth.user.user._id;
+
+      if (!userId) {
+        dispatch(naviateToLogin());
+        return rejectWithValue("user not authenticated");
+      }
+      const res = await axios.delete(`${apiUrl}/api/cart/remove`, {
+        data: { userId, productId },
+      });
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const naviateToLogin = () => (dispatch) => {
   const navigate = useNavigate();
   navigate("/login");
@@ -33,29 +55,48 @@ export const naviateToLogin = () => (dispatch) => {
 const initialState = {
   data: null,
   isLoadingp: false,
-  error: null,
+  errorp: null,
 };
 
 const addToCartSlice = createSlice({
   name: "cart",
   initialState,
-  reducers: {},
+  reducers: {
+    resetcartFunc: (state, action) => {
+      state.data = null;
+      state.isLoadingp = false;
+      state.errorp = null;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(addToCart.pending, (state) => {
       state.isLoadingp = true;
-      state.error = null;
+      state.errorp = null;
     });
     builder.addCase(addToCart.fulfilled, (state, action) => {
       state.isLoadingp = false;
       state.data = action.payload;
-      state.error = null;
+      state.errorp = null;
     });
     builder.addCase(addToCart.rejected, (state, action) => {
       state.isLoadingp = false;
-      state.error = action.payload || "Something went wrong";
+      state.errorp = action.payload || "Something went wrong";
+    });
+    builder.addCase(removeFromCart.pending, (state) => {
+      state.isLoadingp = true;
+      state.errorp = null;
+    });
+    builder.addCase(removeFromCart.fulfilled, (state, action) => {
+      state.isLoadingp = false;
+      state.data = action.payload;
+      state.errorp = null;
+    });
+    builder.addCase(removeFromCart.rejected, (state, action) => {
+      state.isLoadingp = false;
+      state.errorp = action.payload || "Something went wrong";
     });
   },
 });
 
-export const {} = addToCartSlice.actions;
+export const { resetcartFunc } = addToCartSlice.actions;
 export default addToCartSlice.reducer;

@@ -12,5 +12,6 @@ const store = configureStore({
     registered: signUpReducer,
     addtocart: addToCartReducer,
   },
+  // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
 export default store;

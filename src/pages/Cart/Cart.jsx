@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCart } from "../../Reducers/cartReducer";
+import { removeFromCart, resetcartFunc } from "../../Reducers/addToCart";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,14 @@ const Cart = () => {
     dispatch(fetchCart());
   }, [dispatch]);
 
+  const { isLoadingp, errorp } = useSelector((state) => state.addtocart);
+
+  const handleRemove = (productId) => {
+    console.log(productId);
+    dispatch(removeFromCart(productId));
+    dispatch(resetcartFunc());
+  };
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -23,8 +32,10 @@ const Cart = () => {
       </div>
     );
   }
+
   if (error) {
-    let errorMessage = "An error occurred. Please try again later.";
+    let errorMessage =
+      'An error occurred. Please try again later "May be your are not logged In".';
     if (error === "Resource not found.") {
       errorMessage = "No cart found for this user.";
     }
@@ -67,8 +78,13 @@ const Cart = () => {
               <p className="text-gray-700 mb-2">
                 ₹{item.price} x {item.quantity}
               </p>
-              <button className="bg-red-500 text-white px-4 py-1 rounded-lg hover:bg-red-600">
-                Remove
+              <button
+                onClick={() => {
+                  handleRemove(item.productId);
+                }}
+                className="bg-red-500 text-white px-4 py-1 rounded-lg hover:bg-red-600"
+              >
+                {isLoadingp ? "Removing" : "Remove"}
               </button>
             </div>
           </div>

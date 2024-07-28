@@ -3,7 +3,7 @@ import { LuLoader } from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchData } from "../../Reducers/ProductsReducer";
 import { fetchCart } from "../../Reducers/cartReducer";
-import { addToCart } from "../../Reducers/addToCart";
+import { addToCart, resetcartFunc } from "../../Reducers/addToCart";
 
 const ProductsData = () => {
   const dispatch = useDispatch();
@@ -18,8 +18,8 @@ const ProductsData = () => {
   const { isLoadingp, error } = useSelector((state) => state.addtocart);
 
   const handleAddToCart = (productId) => {
-    console.log("object");
     dispatch(addToCart(productId));
+    dispatch(resetcartFunc());
   };
   return (
     <>

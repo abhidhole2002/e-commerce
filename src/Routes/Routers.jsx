@@ -21,7 +21,7 @@ const Routers = () => {
       <Route path="/products" element={<ProductsData />} />
 
       <Route path="/signup" element={<SignUp />} />
-      <Route path="/mycart" element={<Cart />} />
+      <Route path="/mycart" element={<ProtectedRouting component={Cart} />} />
     </Routes>
   );
 };
