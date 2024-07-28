@@ -3,6 +3,7 @@ import { LuLoader } from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchData } from "../../Reducers/ProductsReducer";
 import { fetchCart } from "../../Reducers/cartReducer";
+import { addToCart } from "../../Reducers/addToCart";
 
 const ProductsData = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,12 @@ const ProductsData = () => {
     dispatch(fetchCart());
   }, [dispatch]);
 
+  const { isLoadingp, error } = useSelector((state) => state.addtocart);
+
+  const handleAddToCart = (productId) => {
+    console.log("object");
+    dispatch(addToCart(productId));
+  };
   return (
     <>
       {isLoading ? (
@@ -23,7 +30,7 @@ const ProductsData = () => {
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-4 justify-items-center mt-28 lg:px-2">
+        <div className="grid grid-cols-2 lg:grid-cols-5 md:grid-cols-3 gap-4 justify-items-center mt-28 lg:px-10">
           {data.map((product) => (
             <div
               key={product._id}
@@ -51,8 +58,11 @@ const ProductsData = () => {
                     <button
                       className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 mr-2 rounded text-xs w-24 
                     "
+                      onClick={() => {
+                        handleAddToCart(product._id);
+                      }}
                     >
-                      Add to Cart
+                      {isLoadingp ? "Adding..." : "Add to Cart"}
                     </button>
                     <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded text-xs w-24">
                       Add to Wishlist

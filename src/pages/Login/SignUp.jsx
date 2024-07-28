@@ -1,19 +1,22 @@
-import React, { useContext, useState } from "react";
-import { RxCross2 } from "react-icons/rx";
+import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { RxCross2 } from "react-icons/rx";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { AppContext } from "../../AppContext/AppContext";
-import apiUrl from "../../../config";
+import { resetError, resetSignup, signUp } from "../../Reducers/SignUpSlice";
 
 const SignUp = ({ onClose }) => {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
     mobile: "",
   });
-  const { showLogin, setShowLogin } = useContext(AppContext);
   const navigate = useNavigate();
+
+  const { isLoading, error, signup } = useSelector((state) => state.registered);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -25,47 +28,42 @@ const SignUp = ({ onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    try {
-      const response = await fetch(`${apiUrl}/api/user`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          password: formData.password,
-          address: "address",
-          mobile: formData.mobile,
-        }),
-      });
-
-      if (response.ok) {
-        toast.success("Account created successfully!", {
-          className:
-            "w-full max-w-xs p-4 text-gray-800 bg-white rounded-lg backdrop-blur-xl shadow-md border border-green-500 hover:shadow-lg hover:border-green-700 transform transition-transform duration-150 ease-in-out hover:-translate-y-1 hover:scale-110",
-          iconTheme: {
-            primary: "#4CAF50",
-            secondary: "#FFFFFF",
-          },
-        });
-        setFormData({
-          name: "",
-          email: "",
-          password: "",
-          mobile: "",
-        });
-        setTimeout(() => {
-          navigate("/login");
-        }, 1000);
-      } else {
-        console.error("Failed to create account.");
-      }
-    } catch (error) {
-      console.error("Error creating account:", error);
-    }
+    dispatch(signUp(formData));
   };
+
+  useEffect(() => {
+    if (signup) {
+      toast.success("Account created successfully!", {
+        className:
+          "w-full max-w-xs p-4 text-gray-800 bg-white rounded-lg backdrop-blur-xl shadow-md border border-green-500 hover:shadow-lg hover:border-green-700 transform transition-transform duration-150 ease-in-out hover:-translate-y-1 hover:scale-110",
+        iconTheme: {
+          primary: "#4CAF50",
+          secondary: "#FFFFFF",
+        },
+      });
+      dispatch(resetSignup());
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+        mobile: "",
+      });
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
+    }
+  }, [signup, setFormData]);
+
+  useEffect(() => {
+    if (error && error.msg) {
+      toast.error(error.msg || "An error occurred", {
+        className:
+          "w-full max-w-xs p-4 text-gray-800 bg-white rounded-lg backdrop-blur-xl shadow-md border border-red-500 hover:shadow-lg hover:border-red-700 transform transition-transform duration-150 ease-in-out hover:-translate-y-1 hover:scale-110",
+        iconTheme: { primary: "#FF0000", secondary: "#FFFFFF" },
+      });
+      dispatch(resetError());
+    }
+  }, [error, dispatch]);
 
   return (
     <div
@@ -81,6 +79,7 @@ const SignUp = ({ onClose }) => {
 
           <form onSubmit={handleSubmit}>
             <input
+              required
               type="text"
               name="name"
               value={formData.name}
@@ -90,6 +89,7 @@ const SignUp = ({ onClose }) => {
             />
 
             <input
+              required
               type="email"
               name="email"
               value={formData.email}
@@ -99,6 +99,7 @@ const SignUp = ({ onClose }) => {
             />
 
             <input
+              required
               type="password"
               name="password"
               value={formData.password}
@@ -108,6 +109,7 @@ const SignUp = ({ onClose }) => {
             />
 
             <input
+              required
               type="text"
               name="mobile"
               value={formData.mobile}
@@ -118,9 +120,17 @@ const SignUp = ({ onClose }) => {
 
             <button
               type="submit"
-              className="bg-black text-white py-1 w-24 mx-auto mt-5 rounded-3xl"
+              className={`py-1 w-24 mx-auto mt-5 rounded-3xl ${
+                isLoading ? "bg-gray-500 text-gray-300" : "bg-black text-white"
+              }`}
             >
-              Register
+              {isLoading ? (
+                <div className="flex justify-center items-center">
+                  <AiOutlineLoading3Quarters className="animate-spin text-2xl" />
+                </div>
+              ) : (
+                "Register"
+              )}
             </button>
           </form>
           <h1 className="text-sm mt-3 px-2 font-semibold">
@@ -129,15 +139,12 @@ const SignUp = ({ onClose }) => {
               <span className="text-blue-600 font-semibold">Click here</span>
             </Link>
           </h1>
-          <div
-            className="mx-auto mt-6 bg-gray-200 p-2 rounded-full cursor-pointer"
-            // onClick={onClose}
-            onClick={() => {
-              setShowLogin(!showLogin);
-            }}
-          >
-            <RxCross2 />
-          </div>
+
+          <Link to={"/"}>
+            <div className="bg-gray-300 p-3 rounded-full w-10 mx-auto mt-5 ">
+              <RxCross2 />
+            </div>
+          </Link>
         </div>
       </div>
       <Toaster />

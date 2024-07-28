@@ -3,12 +3,12 @@ import toast, { Toaster } from "react-hot-toast";
 import { RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { AppContext } from "../../AppContext/AppContext";
-import { login } from "../../Reducers/authSlice";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { AppContext } from "../src/AppContext/AppContext";
+import { login } from "../src/Reducers/authSlice";
 
-const Login = ({ onClose }) => {
-  const { setShowLogin, setIsLogin } = useContext(AppContext);
+const Demo = ({ onClose }) => {
+  const { setShowLogin, setIsLogin, showLogin, demo, setdemo, sign, setsign } =
+    useContext(AppContext);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -58,7 +58,8 @@ const Login = ({ onClose }) => {
   }, [error]);
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center ">
+    // <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center ">
+    <div className="absolute inset-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-center items-center mt-[300px]  h-60 w-60 bg-red-300 font-extrabold bg-opacity-60">
       <div
         className="bg-white p-5 rounded-lg shadow-lg w-80"
         onClick={(e) => e.stopPropagation()}
@@ -74,7 +75,7 @@ const Login = ({ onClose }) => {
               onChange={handleChange}
               placeholder="User Name"
               autoComplete="current password"
-              className="focus:outline-none border border-gray-300 mt-5 py-2 px-4 rounded-2xl shadow-lg focus:ring-2 focus:ring-gray-300 transition duration-300 ease-in-out transform hover:scale-105"
+              className="focus:outline-none border border-gray-300 mt-5 py-2 px-4 rounded-2xl shadow-lg focus:ring-2 focus:ring-gray-300 transition duration-300 ease-in-out transform hover:scale-105 "
             />
             <input
               type="password"
@@ -88,36 +89,37 @@ const Login = ({ onClose }) => {
 
             <button
               type="submit"
-              className={`py-1 w-24 mx-auto mt-5 rounded-3xl ${
-                isLoading ? "bg-gray-500 text-gray-300" : "bg-black text-white"
-              }`}
+              className="bg-black text-white py-1 w-24 mx-auto mt-5 rounded-2xl"
             >
-              {isLoading ? (
-                <div className="flex justify-center items-center">
-                  <AiOutlineLoading3Quarters className="animate-spin text-2xl" />
-                </div>
-              ) : (
-                "Login"
-              )}
+              Login
             </button>
           </form>
           <h1 className="text-sm mt-3 px-2 font-semibold">
             Don't have an account ?{" "}
             <Link to={"/signup"}>
-              <span className="text-blue-600 font-semibold">Click here</span>
+              <span
+                onClick={() => demo}
+                className="text-blue-600 font-semibold"
+              >
+                Click here
+              </span>
             </Link>
-          </h1>
-          <Link to={"/"}>
-            {/* <div className="mx-auto mt-6 bg-gray-200 p-2 rounded-full cursor-pointer"> */}
-            <div className="bg-gray-300 p-3 rounded-full w-10 mx-auto mt-5 ">
-              <RxCross2 />
+            <div>
+              <h1>username : mor_2314 </h1>
+              <h1>password : 83r5^_ </h1>
             </div>
-          </Link>
+          </h1>
+          <div
+            onClick={() => setdemo(!demo)}
+            className="mx-auto mt-6 bg-gray-200 p-2 rounded-full cursor-pointer"
+          >
+            <RxCross2 />
+          </div>
         </div>
       </div>
-      <Toaster />
+      {/* <Toaster /> */}
     </div>
   );
 };
 
-export default Login;
+export default Demo;

@@ -47,23 +47,27 @@ const Cart = () => {
   }
 
   return (
-    <div className="container mx-auto p-5">
-      <h1 className="text-3xl font-bold mb-5 text-center">Your Cart</h1>
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-10">
-        {data.products.map((item) => (
+    <div className="container mx-auto  px-10">
+      <h1 className="text-3xl font-bold mb-5 text-center mt-20">Your Cart</h1>
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 mt-10 justify-items-center">
+        {data.products.map((item, index) => (
           <div
-            key={item._id}
+            key={index}
             className="bg-white rounded-lg shadow-xl hover:shadow-xl transition-shadow duration-300 overflow-hidden w-44 "
           >
             <img
               src={item.imageUrl}
               alt={item.name}
-              className="w-full h-48 object-cover"
+              className="w-full h-32 object-cover"
             />
-            <div className="p-5">
-              <h2 className="text-xl font-bold mb-2">{item.name}</h2>
-              <p className="text-gray-700 mb-4">₹{item.price}</p>
-              <button className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
+            <div className="px-5 py-2">
+              <h2 className="text-xl font-bold ">{item.name}</h2>
+              <h2 className="text-xl font-bold "></h2>
+
+              <p className="text-gray-700 mb-2">
+                ₹{item.price} x {item.quantity}
+              </p>
+              <button className="bg-red-500 text-white px-4 py-1 rounded-lg hover:bg-red-600">
                 Remove
               </button>
             </div>
