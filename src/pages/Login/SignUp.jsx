@@ -28,6 +28,17 @@ const SignUp = ({ onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!/^\d+$/.test(formData.mobile)) {
+      toast.error(
+        "Please enter a valid mobile number containing only digits.",
+        {
+          className:
+            "w-full max-w-xs p-4 text-gray-800 bg-white rounded-lg backdrop-blur-xl shadow-md border border-red-500 hover:shadow-lg hover:border-red-700 transform transition-transform duration-150 ease-in-out hover:-translate-y-1 hover:scale-110",
+          iconTheme: { primary: "#FF0000", secondary: "#FFFFFF" },
+        }
+      );
+      return;
+    }
     dispatch(signUp(formData));
   };
 

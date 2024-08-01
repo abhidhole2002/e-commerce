@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import apiUrl from "../../config";
 import { useNavigate } from "react-router-dom";
+import { fetchCart } from "./cartReducer";
 
 export const addToCart = createAsyncThunk(
   "cart/addToCart",
@@ -40,6 +41,7 @@ export const removeFromCart = createAsyncThunk(
       const res = await axios.delete(`${apiUrl}/api/cart/remove`, {
         data: { userId, productId },
       });
+      dispatch(fetchCart());
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
