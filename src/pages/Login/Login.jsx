@@ -4,7 +4,7 @@ import { RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../../AppContext/AppContext";
-import { login } from "../../Reducers/authSlice";
+import { login, resetError } from "../../Reducers/authSlice";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const Login = ({ onClose }) => {
@@ -53,8 +53,18 @@ const Login = ({ onClose }) => {
 
   useEffect(() => {
     if (error) {
-      toast.error(error);
+      const errorMessage =
+        typeof error === "string"
+          ? error
+          : error.msg
+          ? error.msg
+          : "An error occurred";
+      toast.error(errorMessage, {
+        iconTheme: { primary: "#FF0000", secondary: "#FFFFFF" },
+      });
     }
+
+    dispatch(resetError());
   }, [error]);
 
   return (
