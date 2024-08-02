@@ -5,6 +5,7 @@ import ServieCards from "../Cards/ServiceCards";
 import CustomerReview from "../Review/CustomerReview";
 import Products from "../SellingProducts/Products";
 import { AppContext } from "../../AppContext/AppContext";
+import MyForm from "../../../test/MyForm";
 
 const Home = () => {
   const { showLogin, setShowLogin, isLogin, logout, setLogout } =
@@ -32,6 +33,7 @@ const Home = () => {
       <Products />
       <CustomerReview />
       <Brands />
+      {/* <MyForm/> */}
     </>
   );
 };

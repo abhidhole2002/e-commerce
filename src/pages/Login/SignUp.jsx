@@ -26,11 +26,46 @@ const SignUp = ({ onClose }) => {
     }));
   };
 
+  const validateEmail = (email) => {
+    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+  };
+
+  const validatePassword = (password) => {
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+      password
+    );
+  };
+
+  const validateMobile = (mobile) => {
+    return /^\d+$/.test(mobile);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!/^\d+$/.test(formData.mobile)) {
+    if (formData.mobile.length !== 10 || !validateMobile(formData.mobile)) {
       toast.error(
         "Please enter a valid mobile number containing only digits.",
+        {
+          className:
+            "w-full max-w-xs p-4 text-gray-800 bg-white rounded-lg backdrop-blur-xl shadow-md border border-red-500 hover:shadow-lg hover:border-red-700 transform transition-transform duration-150 ease-in-out hover:-translate-y-1 hover:scale-110",
+          iconTheme: { primary: "#FF0000", secondary: "#FFFFFF" },
+        }
+      );
+      return;
+    }
+
+    if (!validateEmail(formData.email)) {
+      toast.error("Please enter a valid email address.", {
+        className:
+          "w-full max-w-xs p-4 text-gray-800 bg-white rounded-lg backdrop-blur-xl shadow-md border border-red-500 hover:shadow-lg hover:border-red-700 transform transition-transform duration-150 ease-in-out hover:-translate-y-1 hover:scale-110",
+        iconTheme: { primary: "#FF0000", secondary: "#FFFFFF" },
+      });
+      return;
+    }
+
+    if (!validatePassword(formData.password)) {
+      toast.error(
+        "Password must be at least 8 characters long and contain at least one letter and one number.",
         {
           className:
             "w-full max-w-xs p-4 text-gray-800 bg-white rounded-lg backdrop-blur-xl shadow-md border border-red-500 hover:shadow-lg hover:border-red-700 transform transition-transform duration-150 ease-in-out hover:-translate-y-1 hover:scale-110",
